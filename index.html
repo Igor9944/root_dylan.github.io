@@ -1,0 +1,1201 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Portfolio Cyber Security - Ethical Hacker & Security Specialist"/>
+  <title>Ro0t | Portfolio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    /* CYBER DARK THEME - ULTRA IMMERSIVE */
+    :root {
+      --bg-dark: #0a0a0f;
+      --bg-darker: #06060a;
+      --bg-card: #11111a;
+      --primary: #00ff88;
+      --primary-dim: #00cc66;
+      --secondary: #6e44ff;
+      --danger: #ff2a6d;
+      --text: #e0e0ff;
+      --text-dim: #a0a0c0;
+      --glow: 0 0 15px rgba(0, 255, 136, 0.3);
+      --scan-line: linear-gradient(to bottom, 
+        transparent 0%, 
+        rgba(0, 255, 136, 0.05) 50%, 
+        transparent 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text);
+      font-family: 'Courier New', monospace;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* SCAN LINES EFFECT */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--scan-line);
+      animation: scan 8s linear infinite;
+      pointer-events: none;
+      z-index: 10000;
+    }
+
+    @keyframes scan {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100vh); }
+    }
+
+    /* TERMINAL CURSOR */
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1.2em;
+      background: var(--primary);
+      animation: blink 1s infinite;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+
+    /* NOISE TEXTURE */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 50px 50px, 100px 100px;
+      background-position: 0 0, 25px 25px;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* LUEUR CONTINUE - BACKGROUND GLOW */
+    .glow-background {
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(0, 255, 136, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(110, 68, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(0, 255, 136, 0.1) 0%, transparent 60%);
+      animation: glowPulse 8s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* NAVIGATION */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(25, 25, 43, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      border-bottom: 1px solid rgba(0, 255, 136, 0.1);
+    }
+
+    .nav-logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary);
+      text-shadow: var(--glow);
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .bar {
+      width: 25px;
+      height: 2px;
+      background: var(--primary);
+      margin: 3px 0;
+      transition: 0.3s;
+    }
+
+    /* SECTIONS */
+    .section {
+      padding: 6rem 10%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      color: var(--primary);
+      text-shadow: var(--glow);
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 2px;
+      background: var(--primary);
+    }
+
+    /* HERO SECTION */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: var(--bg-darker);
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(110, 68, 255, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(0, 255, 136, 0.1) 0%, transparent 40%);
+    }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-content h2 {
+      font-size: 1.8rem;
+      margin-bottom: 2rem;
+      color: var(--text-dim);
+    }
+
+    .hero-content p {
+      font-size: 1.1rem;
+      margin-bottom: 2.5rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.8;
+    }
+
+    .btn {
+      display: inline-block;
+      background: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+      padding: 0.8rem 2.5rem;
+      border-radius: 0;
+      text-decoration: none;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      box-shadow: var(--glow);
+      color: white;
+    }
+
+    /* ABOUT */
+    .about-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+
+    .about-text p {
+      margin-bottom: 1.2rem;
+      line-height: 1.8;
+    }
+
+    .about-skills {
+      background: var(--bg-card);
+      padding: 2rem;
+      border: 1px solid rgba(0, 255, 136, 0.1);
+      border-radius: 0;
+    }
+
+    .about-skills h3 {
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+    }
+
+    .about-skills ul {
+      list-style: none;
+    }
+
+    .about-skills li {
+      margin-bottom: 0.8rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .about-skills li::before {
+      content: '>';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+    }
+
+    /* SKILLS GRID */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .skill-card {
+      background: rgba(17, 17, 26, 0.4);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      padding: 2.5rem 2rem;
+      border: 1px solid rgba(110, 68, 255, 0.3);
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .skill-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--secondary);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+    }
+
+    .skill-card:hover {
+      box-shadow: 0 10px 40px rgba(110, 68, 255, 0.4), 0 0 30px rgba(0, 255, 136, 0.2);
+      border-color: rgba(110, 68, 255, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    /* Effet hover pour les cartes autres que SECURITY et CONCEPTION AUDIO-VISUEL */
+    .skill-card:not(:first-child):not(:nth-child(2)):hover {
+      transform: translateY(-5px);
+    }
+
+    .skill-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .skill-card i {
+      font-size: 3rem;
+      color: var(--secondary);
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .skill-card h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      padding: 2rem;
+      border: 1px solid rgba(255, 42, 109, 0.1);
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover {
+      border-color: rgba(255, 42, 109, 0.3);
+      transform: translateX(10px);
+    }
+
+    .project-card h3 {
+      color: var(--danger);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+
+    .project-card .tag {
+      display: inline-block;
+      background: rgba(255, 42, 109, 0.2);
+      color: var(--danger);
+      padding: 0.3rem 0.8rem;
+      font-size: 0.8rem;
+      border-radius: 0;
+      margin-top: 1rem;
+      border: 1px solid rgba(255, 42, 109, 0.3);
+    }
+
+    /* CONTACT */
+    .contact-links {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      color: var(--text);
+      text-decoration: none;
+      padding: 0.8rem 1.5rem;
+      border: 1px solid rgba(100, 100, 150, 0.2);
+      transition: all 0.3s ease;
+      min-width: 180px;
+      justify-content: center;
+    }
+
+    .contact-link:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: var(--glow);
+    }
+
+    .contact-link i {
+      font-size: 1.2rem;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 3rem 10%;
+      background: var(--bg-darker);
+      border-top: 1px solid rgba(0, 255, 136, 0.05);
+      margin-top: 2rem;
+    }
+
+    footer p {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    footer strong {
+      color: var(--primary);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        flex-direction: column;
+        background: var(--bg-darker);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        padding: 2rem 0;
+        backdrop-filter: blur(10px);
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 4rem 5%;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+
+    /* GLITCH EFFECT FOR HERO TEXT */
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(-2px, -2px); }
+      60% { transform: translate(2px, 2px); }
+      80% { transform: translate(2px, -2px); }
+      100% { transform: translate(0); }
+    }
+
+    .glitch {
+      animation: glitch 5s infinite;
+      animation-duration: 5s;
+    }
+
+    .glitch:hover {
+      animation: none;
+    }
+
+    /* TERMINAL STYLE FOR TEXT */
+    .terminal-text {
+      font-family: 'Courier New', monospace;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 1.5rem;
+      border-left: 2px solid var(--primary);
+    }
+
+    /* LUEUR CONTINUE - GLOBAL GLOW EFFECT */
+    @keyframes continuousGlow {
+      0%, 100% {
+        box-shadow: 
+          0 0 20px rgba(0, 255, 136, 0.3),
+          0 0 40px rgba(0, 255, 136, 0.2),
+          0 0 60px rgba(0, 255, 136, 0.1),
+          inset 0 0 20px rgba(0, 255, 136, 0.1);
+      }
+      50% {
+        box-shadow: 
+          0 0 30px rgba(0, 255, 136, 0.5),
+          0 0 60px rgba(0, 255, 136, 0.3),
+          0 0 90px rgba(0, 255, 136, 0.2),
+          inset 0 0 30px rgba(0, 255, 136, 0.15);
+      }
+    }
+
+    @keyframes textGlow {
+      0%, 100% {
+        text-shadow: 
+          0 0 10px rgba(0, 255, 136, 0.5),
+          0 0 20px rgba(0, 255, 136, 0.3),
+          0 0 30px rgba(0, 255, 136, 0.2);
+      }
+      50% {
+        text-shadow: 
+          0 0 15px rgba(0, 255, 136, 0.7),
+          0 0 30px rgba(0, 255, 136, 0.5),
+          0 0 45px rgba(0, 255, 136, 0.3);
+      }
+    }
+
+    @keyframes borderGlow {
+      0%, 100% {
+        border-color: rgba(0, 255, 136, 0.3);
+        box-shadow: 
+          0 0 10px rgba(0, 255, 136, 0.2),
+          inset 0 0 10px rgba(0, 255, 136, 0.1);
+      }
+      50% {
+        border-color: rgba(0, 255, 136, 0.6);
+        box-shadow: 
+          0 0 20px rgba(0, 255, 136, 0.4),
+          inset 0 0 20px rgba(0, 255, 136, 0.2);
+      }
+    }
+
+    /* Application de la lueur continue sur les éléments principaux */
+    .section-title {
+      animation: textGlow 3s ease-in-out infinite;
+    }
+
+    .nav-logo {
+      animation: textGlow 3s ease-in-out infinite;
+    }
+
+    .skill-card {
+      animation: borderGlow 4s ease-in-out infinite;
+    }
+
+    .project-card {
+      animation: borderGlow 4s ease-in-out infinite;
+    }
+
+    .btn {
+      animation: borderGlow 3s ease-in-out infinite;
+    }
+
+    .contact-link {
+      animation: borderGlow 3.5s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        opacity: 0.6;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+    }
+
+    /* Ajustement des z-index pour que le contenu soit au-dessus */
+    .section {
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* PLUIE D'ICÔNES EN ARRIÈRE-PLAN */
+    .falling-icons {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .falling-icon {
+      position: absolute;
+      font-size: 1.5rem;
+      color: rgba(0, 255, 136, 0.15);
+      animation: fall linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.3;
+      }
+      90% {
+        opacity: 0.3;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Animations subtiles supplémentaires */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.6;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Application des animations subtiles - flottement des cartes SECURITY et CONCEPTION AUDIO-VISUEL */
+    .skill-card:first-child {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .skill-card:nth-child(2) {
+      animation: float 3s ease-in-out infinite;
+      animation-delay: 0.5s;
+    }
+
+    .project-card {
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    .project-card:nth-child(2) {
+      animation-delay: 1s;
+    }
+
+    .project-card:nth-child(3) {
+      animation-delay: 2s;
+    }
+
+    .contact-link {
+      transition: all 0.3s ease;
+    }
+
+    .contact-link i {
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .contact-link:hover i {
+      transform: scale(1.2) rotate(10deg);
+    }
+
+    /* Animation pour les titres de section */
+    .section-title {
+      position: relative;
+    }
+
+    .section-title::before {
+      content: '>';
+      position: absolute;
+      left: -30px;
+      animation: blink 1s infinite;
+      color: var(--primary);
+    }
+
+    /* Animation pour le bouton - supprimée */
+
+    /* Animation pour la navbar */
+    .navbar {
+      animation: slideDown 0.5s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* Animation pour les cartes au survol - flottement supplémentaire pour SECURITY et CONCEPTION AUDIO-VISUEL */
+    .skill-card:first-child:hover {
+      animation: float 1.5s ease-in-out infinite;
+      transform: translateY(-15px) !important;
+    }
+
+    .skill-card:nth-child(2):hover {
+      animation: float 1.5s ease-in-out infinite;
+      transform: translateY(-15px) !important;
+    }
+
+    /* Animation pour les tags de projets */
+    .tag {
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover .tag {
+      transform: scale(1.1);
+      box-shadow: 0 0 10px rgba(255, 42, 109, 0.5);
+    }
+
+    /* Animation pour le hero content */
+    .hero-content h1 {
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero-content h2 {
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+
+    .hero-content p {
+      animation: fadeInUp 1s ease-out 0.6s both;
+    }
+
+    .hero-content .btn {
+      animation: fadeInUp 1s ease-out 0.9s both;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Animation pour les liens de navigation */
+    .nav-links a {
+      position: relative;
+    }
+
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 255, 136, 0.1);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+      z-index: -1;
+    }
+
+    .nav-links a:hover::before {
+      transform: scaleX(1);
+    }
+
+    /* Effet blur supplémentaire sur la section compétences */
+    #competences {
+      position: relative;
+    }
+
+    #competences::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(17, 17, 26, 0.2);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      pointer-events: none;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Lueur continue en arrière-plan -->
+  <div class="glow-background"></div>
+  
+  <!-- Pluie d'icônes en arrière-plan -->
+  <div class="falling-icons" id="fallingIcons"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-logo">Ro0t</div>
+    <ul class="nav-links">
+      <li><a href="#accueil">ACCUEIL</a></li>
+      <li><a href="#apropos">À PROPOS</a></li>
+      <li><a href="#competences">COMPÉTENCES</a></li>
+      <li><a href="#projets">PROJETS</a></li>
+      <li><a href="#contact">CONTACTS</a></li>
+    </ul>
+    <div class="menu-toggle" id="mobile-menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="accueil" class="hero section">
+    <div class="hero-content">
+      <h1 class="glitch">root@security:~$ <span class="highlight">ro0t</span></h1>
+      <h2>CYBERSECURITY SPECIALIST | PYTHON DEVELOPER</h2>
+      <p class="terminal-text">> Analyse des vulnérabilités • Pentesting • Sécurité offensive • Python Development</p>
+      <a href="#contact" class="btn">INITIALISER CONTACT</a>
+    </div>
+  </section>
+
+  <!-- À propos -->
+  <section id="apropos" class="section">
+    <h2 class="section-title">// À PROPOS</h2>
+    <div class="about-content">
+      <div class="about-text">
+        <p>> Aprennant en Informatique en <span class="highlight"> deuxieme année (2)</span> je suis passionnné de la technologie et je me spécialise en Securité Informatique .</p>
+        <p>> Intermediaire dans la programation en Python , shell , en création de support audiovisuel(Infographie), et Junior en Devellopement web. Passionné(e) par la recherche des techniques d'attaque et de defense modernes.</p>
+        <p>> Plus ou moins actif dans les communautées CTF et participant aux HACKATON local.</p>
+      </div>
+      <div class="about-skills">
+        <h3>SKILLS</h3>
+        <ul>
+          <li>Nmap, Burp Suite, Metasploit</li>
+          <li>Wireshark</li>
+          <li>Python, Bash, PowerShell , Python , Web Development</li>
+          <li>Docker,Github</li>
+          <li>Canvas</li>
+         
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compétences -->
+  <section id="competences" class="section">
+    <h2 class="section-title">// COMPÉTENCES</h2>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <i class="fas fa-graduation-cap"></i>
+        <h3>SECURITY </h3>
+        <p>Formations, Simulations de phishing, Politiques de sécurité</p>
+      </div>
+      <div class="skill-card">
+        <i class="fas fa-video"></i>
+        <h3>CONCEPTION AUDIO-VISUEL</h3>
+        <p>Création de supports audiovisuels, Infographie, Montage vidéo, Design graphique</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projets -->
+  <section id="projets" class="section">
+    <h2 class="section-title">// PROJETS</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <h3>PROGRAMME DE TRACAGE INTELLIGENT DE BUS GRÂCE À L'IA</h3>
+        <p>Système de suivi en temps réel des bus utilisant l'intelligence artificielle pour optimiser les trajets et améliorer l'expérience utilisateur.</p>
+        <span class="tag">IA | PYTHON | TRACKING | REACT NATIVE | SUPERBASE |</span>
+      </div>
+      <div class="project-card">
+        <h3>CTF TRAIN</h3>
+        <p>Entrainement d'intrusion sur des machines distantes.</p>
+        <span class="tag"> SHELL | SECURITY</span>
+      </div>
+      <div class="project-card">
+        <h3>MY PORTFOLIO</h3>
+        <p>Portfolio personnel en développement web.</p>
+        <span class="tag">HTML | CSS | JAVASCRIPT</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section">
+    <h2 class="section-title">// CONTACTS</h2>
+    <div class="contact-content">
+      <p class="terminal-text">> Prêt(e) à sécuriser votre infrastructure ou a analyser vos données ? Contactez-moi pour une consultation gratuite ou une collaboration sur des projets de sécurité.</p>
+      <div class="contact-links">
+        <a href="mailto:igorrose2003@gmmail.com" target="_blank" class="contact-link">
+          <i class="fas fa-envelope"></i> EMAIL
+        </a>
+        <a href="https://wa.me/22879774010" target="_blank" class="contact-link">
+          <i class="fab fa-whatsapp"></i> WHATSAPP
+        </a>
+        <a href="https://www.linkedin.com/in/dylan-igor-yao-mawuenyegan-adigbli-39a880343/" target="_blank" class="contact-link">
+          <i class="fab fa-linkedin"></i> LINKEDIN
+        </a>
+        <a href="https://github.com/igor9944" target="_blank" class="contact-link">
+          <i class="fab fa-github"></i> GITHUB
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Ro0t PORTFOLIO — Tous les systèmes sont <strong>sécurisés</strong> et conformes aux meilleures pratiques de cybersécurité.</p>
+  </footer>
+
+  <script>
+    // Menu mobile toggle
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+    
+    mobileMenu.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      // Animation des bars du menu
+      const bars = document.querySelectorAll('.bar');
+      bars.forEach(bar => bar.classList.toggle('active'));
+    });
+
+    // Smooth scrolling avec fermeture du menu mobile
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          navLinks.classList.remove('active');
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Animation d'apparition au scroll
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.section').forEach(section => {
+      observer.observe(section);
+    });
+
+    // Effet de terminal pour le texte du hero
+    const heroText = document.querySelector('.hero-content p');
+    const originalText = heroText.textContent;
+    heroText.textContent = '';
+    
+    let i = 0;
+    const typeWriter = () => {
+      if (i < originalText.length) {
+        heroText.textContent += originalText.charAt(i);
+        i++;
+        setTimeout(typeWriter, 20);
+      }
+    };
+    
+    // Démarrer l'animation après un court délai
+    setTimeout(() => {
+      typeWriter();
+    }, 500);
+
+    // Effet de glitch amélioré
+    const glitchElements = document.querySelectorAll('.glitch');
+    glitchElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        el.style.animation = 'none';
+      });
+      
+      el.addEventListener('mouseleave', () => {
+        el.style.animation = 'glitch 5s infinite';
+      });
+    });
+
+    // PLUIE D'ICÔNES - Langages de programmation et hacking
+    const icons = [
+      // Langages de programmation
+      'fab fa-python',
+      'fab fa-js',
+      'fab fa-html5',
+      'fab fa-css3-alt',
+      'fab fa-bash',
+      'fab fa-git-alt',
+      'fab fa-docker',
+      'fab fa-github',
+      // Icônes de hacking/sécurité
+      'fas fa-bug',
+      'fas fa-shield-alt',
+      'fas fa-lock',
+      'fas fa-key',
+      'fas fa-terminal',
+      'fas fa-code',
+      'fas fa-network-wired',
+      'fas fa-user-secret',
+      'fas fa-fingerprint',
+      'fas fa-virus',
+      'fas fa-fire',
+      'fas fa-database',
+      'fas fa-server',
+      'fas fa-cloud',
+      'fas fa-wifi'
+    ];
+
+    const fallingIconsContainer = document.getElementById('fallingIcons');
+    const iconColors = [
+      'rgba(0, 255, 136, 0.15)',
+      'rgba(110, 68, 255, 0.15)',
+      'rgba(255, 42, 109, 0.15)',
+      'rgba(0, 255, 136, 0.1)',
+      'rgba(110, 68, 255, 0.1)'
+    ];
+
+    function createFallingIcon() {
+      const icon = document.createElement('i');
+      const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+      const randomColor = iconColors[Math.floor(Math.random() * iconColors.length)];
+      const randomLeft = Math.random() * 100;
+      const randomDuration = 10 + Math.random() * 20; // Entre 10 et 30 secondes
+      const randomDelay = Math.random() * 5;
+      const randomSize = 1 + Math.random() * 1.5; // Entre 1rem et 2.5rem
+
+      icon.className = `falling-icon ${randomIcon}`;
+      icon.style.left = randomLeft + '%';
+      icon.style.animationDuration = randomDuration + 's';
+      icon.style.animationDelay = randomDelay + 's';
+      icon.style.fontSize = randomSize + 'rem';
+      icon.style.color = randomColor;
+
+      fallingIconsContainer.appendChild(icon);
+
+      // Supprimer l'icône après l'animation
+      setTimeout(() => {
+        if (icon.parentNode) {
+          icon.parentNode.removeChild(icon);
+        }
+      }, (randomDuration + randomDelay) * 1000);
+    }
+
+    // Créer des icônes qui tombent continuellement
+    function startFallingIcons() {
+      // Créer 3-5 icônes toutes les 2 secondes
+      setInterval(() => {
+        const numIcons = 3 + Math.floor(Math.random() * 3); // Entre 3 et 5 icônes
+        for (let i = 0; i < numIcons; i++) {
+          setTimeout(() => createFallingIcon(), i * 200);
+        }
+      }, 2000);
+    }
+
+    // Démarrer la pluie d'icônes
+    startFallingIcons();
+
+    // Animation au scroll pour les éléments
+    const animateOnScroll = () => {
+      const elements = document.querySelectorAll('.skill-card, .project-card, .contact-link');
+      elements.forEach((el, index) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+    };
+
+    // Observer pour animer les éléments quand ils entrent dans la vue
+    const scrollObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.skill-card, .project-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      scrollObserver.observe(el);
+    });
+  </script>
+</body>
+</html>
